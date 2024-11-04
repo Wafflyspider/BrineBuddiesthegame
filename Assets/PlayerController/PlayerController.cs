@@ -1,13 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
     public LayerMask solidobjectLayer;
-    private bool isMoving;
+    public LayerMask grassLayer;
+
     private Vector2 input;
+    private bool isMoving;
 
     private void Update()
     {
@@ -17,7 +18,7 @@ public class PlayerController : MonoBehaviour
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
 
-            // Removes diagonal movement
+            // Prevent diagonal movement
             if (input.x != 0) input.y = 0;
 
             if (input != Vector2.zero)
@@ -32,8 +33,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Check target
-    IEnumerator Move(Vector3 targetPos)
+    // Move to target position
+    private IEnumerator Move(Vector3 targetPos)
     {
         isMoving = true;
 
@@ -45,15 +46,26 @@ public class PlayerController : MonoBehaviour
         transform.position = targetPos;
 
         isMoving = false;
+
+        // Check for encounters after moving
+        CheckForEncounters();
     }
 
+    // Check if target position is walkable
     private bool IsWalkable(Vector3 targetPos)
     {
-        if (Physics2D.OverlapCircle(targetPos, 0.3f, solidobjectLayer) != null)
-        {
-            return false;
-        }
+        return Physics2D.OverlapCircle(targetPos, 0.2f, solidobjectLayer) == null;
+    }
 
-        return true;
+    // Check for encounters on grass
+    private void CheckForEncounters()
+    {
+        if (Physics2D.OverlapCircle(transform.position, 0.2f, grassLayer) != null)
+        {
+            if (Random.Range(1, 101) <= 10)
+            {
+                Debug.Log("Encountered a wild creature");
+            }
+        }
     }
 }
