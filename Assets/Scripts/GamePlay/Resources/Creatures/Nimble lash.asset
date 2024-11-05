@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ade3d203c8a263440824f153e722740a, type: 3}
   m_Name: Nimble lash
   m_EditorClassIdentifier: 
-  name: 
+  creaturename: 
   description: 
   frontSprite: {fileID: 21300000, guid: d1f1a46450c725b44a645ba31014387b, type: 3}
   backSprite: {fileID: 0}
@@ -24,3 +24,10 @@ MonoBehaviour:
   spAttack: 25
   spDefense: 35
   speed: 72
+  learnableMoves:
+  - moveSet: {fileID: 11400000, guid: c58b2e2913915724989080372754ffe2, type: 2}
+    level: 1
+  - moveSet: {fileID: 11400000, guid: 8c995bb0ebf92564cb4f2b04cb37a4e0, type: 2}
+    level: 4
+  - moveSet: {fileID: 11400000, guid: e434bb9783a26e14cb184ad7ac5ab364, type: 2}
+    level: 5

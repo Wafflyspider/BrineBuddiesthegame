@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ade3d203c8a263440824f153e722740a, type: 3}
   m_Name: Brinestein
   m_EditorClassIdentifier: 
-  name: 
+  creaturename: 
   description: 
   frontSprite: {fileID: 21300000, guid: 6746f9312f34ddd4281e0fb32581c667, type: 3}
   backSprite: {fileID: 21300000, guid: 535c5b90d02de034da89454e97430296, type: 3}
@@ -24,3 +24,12 @@ MonoBehaviour:
   spAttack: 65
   spDefense: 65
   speed: 70
+  learnableMoves:
+  - moveSet: {fileID: 11400000, guid: d6cf904223e4717499272f3fc5825b0a, type: 2}
+    level: 1
+  - moveSet: {fileID: 11400000, guid: 8c995bb0ebf92564cb4f2b04cb37a4e0, type: 2}
+    level: 4
+  - moveSet: {fileID: 11400000, guid: 4f35b4c014a4806489e77fcce20a1d66, type: 2}
+    level: 5
+  - moveSet: {fileID: 11400000, guid: e72414c13b49dac479e7de08c3583d02, type: 2}
+    level: 6

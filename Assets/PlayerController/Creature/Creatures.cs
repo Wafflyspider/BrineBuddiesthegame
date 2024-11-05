@@ -4,38 +4,53 @@ using UnityEngine;
 
 public class Creatures
 {
-  CreaturesBase _base;
-  int level;
+    public CreatureBase Base { get; set; }
+    public int Level { get; set; }
 
-  public Creatures(CreaturesBase pBase, int pLevel)
-  {
-    _base = pBase;
-    level= pLevel;
-  }
+    public int HP { get; set; }
 
-  public int Attack {
-    get {return Mathf.FloorToInt((_base.Attack *  level) / 100f) + 5; }
-  }
-  public int defense {
-    get {return Mathf.FloorToInt((_base.defense *  level) / 100f) + 5; }
-  }
+    public List<Move> Moves { get; set; }
 
-  public int Attack {
-    get {return Mathf.FloorToInt((_base.Attack *  level) / 100f) + 5; }
-  }
+    public Creatures(CreatureBase pBase, int pLevel)
+    {
+        Base = pBase;
+        Level = pLevel;
+        HP = MaxHP;
 
-  public int spAttackAttack {
-    get {return Mathf.FloorToInt((_base.spAttack *  level) / 100f) + 5; }
-  }
+        //Generate Moves
+        Moves = new List<Move>();
+        foreach (var move in Base.LearnableMoves)
+        {
+            if (move.Level <= Level)
+                Moves.Add(new Move(move.Base));
 
-  public int spDefense {
-    get {return Mathf.FloorToInt((_base.spDefense *  level) / 100f) + 5; }
-  }
+                if (Moves.Count >= 4)
+                    break;
+        }
+    }
 
-  public int speed {
-    get {return Mathf.FloorToInt((_base.speed *  level) / 100f) + 5; }
-  }
-  public int maxHP {
-    get {return Mathf.FloorToInt((_base.maxHP *  level) / 100f) + 10; }
-  }
+    public int Attack {
+        get { return Mathf.FloorToInt((Base.Attack * Level) / 100f) + 5;}
+    }
+
+     public int Defense {
+        get { return Mathf.FloorToInt((Base.Defense * Level) / 100f) + 5;}
+    }
+
+     public int SpAttack {
+        get { return Mathf.FloorToInt((Base.SpAttack * Level) / 100f) + 5;}
+    }
+
+     public int SpDefense {
+        get { return Mathf.FloorToInt((Base.SpDefense * Level) / 100f) + 5;}
+    }
+
+     public int Speed {
+        get { return Mathf.FloorToInt((Base.Speed * Level) / 100f) + 5;}
+    }
+
+     public int MaxHP {
+        get { return Mathf.FloorToInt((Base.MaxHP * Level) / 100f) + 10;}
+    }
+
 }
