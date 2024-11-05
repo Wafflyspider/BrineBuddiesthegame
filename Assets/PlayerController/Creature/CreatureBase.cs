@@ -38,7 +38,7 @@ public class CreatureBase : ScriptableObject
         get {return frontSprite; }
     }
 
-          public Sprite BackSprite{
+         public Sprite BackSprite {
         get {return backSprite; }
     }
 

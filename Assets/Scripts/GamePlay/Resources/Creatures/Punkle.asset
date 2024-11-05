@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ade3d203c8a263440824f153e722740a, type: 3}
-  m_Name: Brinestein
+  m_Name: Punkle
   m_EditorClassIdentifier: 
   creaturename: 
   description: 

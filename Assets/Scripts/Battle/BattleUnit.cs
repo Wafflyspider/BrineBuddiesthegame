@@ -12,10 +12,10 @@ public class BattleUnit : MonoBehaviour
     public Creatures Creatures { get; set; }
     public void Setup()
     {
-        new Creatures(_base, level);
+        Creatures = new Creatures(_base, level);
         if (isPlayerUnit)
             GetComponent<Image>().sprite = Creatures.Base.BackSprite;
-            else 
-                GetComponent<Image>().sprite = Creatures.Base.FrontSprite;
+        else 
+            GetComponent<Image>().sprite = Creatures.Base.FrontSprite;
     }
 }
