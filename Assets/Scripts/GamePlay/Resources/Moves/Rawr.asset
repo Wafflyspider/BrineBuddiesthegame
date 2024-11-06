@@ -15,6 +15,6 @@ MonoBehaviour:
   Movesetname: 
   description: 
   type: 1
-  power: 0
+  power: 1
   accuracy: 100
   pp: 40

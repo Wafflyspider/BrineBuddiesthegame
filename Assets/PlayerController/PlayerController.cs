@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,7 +11,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 input;
     private bool isMoving;
 
-    private void Update()
+    public event Action OnEncountered;
+
+    public void HandleUpdate()
     {
         // Movement controls
         if (!isMoving)
@@ -62,9 +65,9 @@ public class PlayerController : MonoBehaviour
     {
         if (Physics2D.OverlapCircle(transform.position, 0.2f, grassLayer) != null)
         {
-            if (Random.Range(1, 101) <= 10)
+            if (UnityEngine.Random.Range(1, 101) <= 10)
             {
-                Debug.Log("Encountered a wild creature");
+                OnEncountered();
             }
         }
     }
