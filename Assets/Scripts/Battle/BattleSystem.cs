@@ -236,5 +236,6 @@ public class BattleSystem : MonoBehaviour
       dialogBox.EnableDialogText(true);
       StartCoroutine(PerformPlayerMove());
     }
+
   }
 }

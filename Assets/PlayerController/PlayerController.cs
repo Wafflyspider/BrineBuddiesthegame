@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Movement Settings")]
     public float moveSpeed = 3f;
     public LayerMask solidobjectLayer;
     public LayerMask grassLayer;
     public LayerMask iceSurface;
 
+    public LayerMask coinLayer;
+
+
     private Vector2 input;
     private bool isMoving;
 
+    public CoinManager cm;
+
     public event Action OnEncountered;
+
 
     private Rigidbody2D rb;
     private bool isSliding;
@@ -76,6 +81,9 @@ public class PlayerController : MonoBehaviour
 
         // Check if on ice after moving
         CheckifIce();
+        // check if coin pickup
+        CheckifCoin();
+
     }
 
     private bool IsWalkable(Vector3 targetPos)
@@ -150,4 +158,23 @@ public class PlayerController : MonoBehaviour
         // Default to right if no input detected
         return Vector2.right;
     }
+
+   private void CheckifCoin()
+{
+    if (Physics2D.OverlapCircle(transform.position, 0.2f, coinLayer) != null)
+    {
+        cm.coinCount++; // Increment the coin count
+
+        // Deactivate the background layer
+        GameObject Coin = GameObject.Find("Coin"); // Find the background object by name
+        if (Coin != null)
+        {
+            Coin.SetActive(false); // Disable the background layer
+        }
+        else
+        {
+            Debug.LogWarning("BackgroundLayer not found in the scene!");
+        }
+    }
+}
 }

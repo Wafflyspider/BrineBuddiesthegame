@@ -66,6 +66,9 @@ public class Dialogbox : MonoBehaviour
                 else
                 moveText[i].color = Color.black;
         }
+        
+        PPText.text = $"PP {move.PP}/{move.Base.PP}";
+        typeText.text = move.Base.Type.ToString();
     }
 
     public void SetMoveNames(List<Move> moves)
