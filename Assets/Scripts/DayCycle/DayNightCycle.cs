@@ -1,44 +1,83 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;  // Import the UI namespace for Text
+using UnityEngine.UI;
+using UnityEngine.Rendering;
 
 public class DayNightCycle : MonoBehaviour
 {
-    public Text timeDisplay;  // Reference to the UI Text component to display time
+    [Header("UI Elements")]
+    public Text timeDisplay;
 
-    public float tick = 1f;   // Rate at which time progresses (e.g., 1 for normal speed, greater for faster time)
-    public float seconds = 0f;  // Tracks the seconds
-    public int mins = 0;      // Tracks the minutes
+    [Header("Post-Processing Volume")]
+    public Volume ppv; 
 
-    void Update()  // Use Update() instead of FixedUpdate() for time progression
+    [Header("Time Settings")]
+    public float tick = 1f; 
+    public float seconds = 0f; 
+    public int mins = 0; 
+
+    void Update()
     {
         CalcTime();
         DisplayTime();
+        ControlPPV();
     }
 
-    // Method to calculate time
+ 
     public void CalcTime()
     {
-        // Increment the seconds based on time elapsed since last frame, multiplied by the tick rate
         seconds += Time.deltaTime * tick;
 
-        if (seconds >= 60)  // If seconds exceed 60, reset to 0 and increment minutes
+        if (seconds >= 60f) 
         {
-            seconds = 0;
+            seconds = 0f;
             mins += 1;
         }
 
-        if (mins >= 24)  // If minutes exceed 24, reset the cycle (to simulate day-night cycle)
+        if (mins >= 24) 
         {
             mins = 0;
         }
     }
 
-    // Method to display time on the UI
+
+    public void ControlPPV()
+    {
+        if (ppv == null)
+        {
+            Debug.LogWarning("ppv");
+            return;
+        }
+
+        if (mins >= 21 && mins < 22)
+        {
+            ppv.weight = Mathf.Lerp(0f, 1f, (mins - 21) + seconds / 60f);
+        }
+        else if (mins >= 22 && mins < 6)
+        {
+            ppv.weight = 1f;
+        }
+        else if (mins >= 6 && mins < 7)
+        {
+            ppv.weight = Mathf.Lerp(1f, 0f, (mins - 6) + seconds / 60f);
+        }
+        else
+        {
+            ppv.weight = 0f;
+        }
+    }
+
+
     public void DisplayTime()
     {
-        // Format the time as minutes and seconds (mm:ss)
-        timeDisplay.text = string.Format("Time:{0:00}:{1:00}", mins, Mathf.FloorToInt(seconds)); 
+        if (timeDisplay != null)
+        {
+            timeDisplay.text = string.Format("Time: {0:00}:{1:00}", mins, Mathf.FloorToInt(seconds));
+        }
+        else
+        {
+            Debug.LogWarning("Time Display Text is not assigned!");
+        }
     }
 }

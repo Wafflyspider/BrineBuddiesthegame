@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    
     public float moveSpeed = 3f;
     public LayerMask solidobjectLayer;
     public LayerMask grassLayer;
@@ -27,7 +28,6 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-
     private void Update()
     {
         if (!isSliding)
@@ -160,21 +160,21 @@ public class PlayerController : MonoBehaviour
     }
 
    private void CheckifCoin()
-{
-    if (Physics2D.OverlapCircle(transform.position, 0.2f, coinLayer) != null)
     {
-        cm.coinCount++; // Increment the coin count
+     if (Physics2D.OverlapCircle(transform.position, 0.2f, coinLayer) != null)
+        {
+            cm.coinCount++; // Increment the coin count
 
         // Deactivate the background layer
         GameObject Coin = GameObject.Find("Coin"); // Find the background object by name
-        if (Coin != null)
-        {
+         if (Coin != null)
+         {
             Coin.SetActive(false); // Disable the background layer
-        }
-        else
-        {
+         }
+         else
+         {
             Debug.LogWarning("BackgroundLayer not found in the scene!");
+         }
         }
     }
-}
 }
